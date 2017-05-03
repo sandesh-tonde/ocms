@@ -2,34 +2,7 @@
 
 
 
-function uploadFile(){
-	var document_type=$("#document_type").val();
-	var document_file=$("#document_file").val();
-	if(document_file==undefined )
-		alert("Please select File");
-	else if(document_type==undefined )
-		alert("Please Enter File Type");
-	else{
-		var data = new FormData($('#fileForm')[0]);
-		$.ajax({
-			type: "POST",
-	        url : contextApplicationPath+'/StudentController/uploadDocument',       
-	        async: false,
-	        data : vcfData,
-	        dataType: 'json',
-	       // processData: false,
-	        //contentType: false,
-	       // cache : false,
-	        success : function(json) 
-	        {
-	        	state = false;
-	        	$(json).each(function(index, element) {
-	        		alert(element.msg);
-	        	}); 
-	        }
-	    });
-	}
-}
+
 function showImagePopup(path){
 	var ext = path.split('.').pop().toLowerCase();
 	path=contextApplicationPath+path;

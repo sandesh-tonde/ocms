@@ -87,20 +87,27 @@ function documentationView(){
         	$(json).each(function(index, element) {
         		
         		html +='	<tr>'
-				+'		<td>'+element.type+'</td>'
+				+'		<td>'+element.type+'cc'
 				+"<td><img src='"+contextApplicationPath+"/resources/images/fileIcon.png' style='width:50px;height:50px;' onClick='showImagePopup(\""+element.path+"\")'></td>"
 				+'	</tr>';
 				
         		
 			}); 
-        	if ((json.length) < 3){
-        		html +='	<tr>'
-    				+'		<td><input type= "text" id = "document_type" /></td>'
-    				+'		<td><form id="fileForm"><input type= "file" id = "document_file" name="document_file"/><h3><a href="#" onclick="uploadFile()"><span class="label label-success">Upload</span></a></h3></form></td>'
-    				+'	</tr>';
-        	}
+        	
         	html +='</tbody>'
 			+'</table>';
+        	
+        	if ((json.length) < 3){
+        		html +='<form id="fileForm" action ="'+contextApplicationPath+'/StudentController/uploadDocument" method="post" enctype="multipart/form-data" >'
+        			+'<table class="table">'
+        			+'	<tr>'
+        			+'		<td><input type= "text" id = "document_type"  name="document_type" /></td>'
+    				+'		<td><input type= "file" id = "document_file" name="document_file"/><br>'
+    				+'		<input type= "submit" class="btn btn-primary m-b-10" onclick="return validate()" value="upload"></td>'
+    				+'</tr>'
+    				+'</table>'
+    				+'</form>';
+        	}
         	
         	$("#main-containt").empty();
 			$("#main-containt").html(html);
@@ -110,4 +117,40 @@ function documentationView(){
         }       
     });	
 	
+}
+
+function validate(){
+	
+	
+	myFormData.append('document_type', document_type);
+	if(document_file==undefined ){
+		alert("Please select File");
+		return false;
+	}
+	else if(document_type==undefined ){
+		alert("Please Enter File Type");
+		return false;
+	}
+	else{
+		return true;
+		/*
+		var data = new FormData($('#fileForm')[0]);
+		$.ajax({
+			type: "POST",
+	        url : contextApplicationPath+'/StudentController/uploadDocument',       
+	        async: false,
+	        data : data,
+	        dataType: 'json',
+	       // processData: false,
+	        //contentType: false,
+	       // cache : false,
+	        success : function(json) 
+	        {
+	        	state = false;
+	        	$(json).each(function(index, element) {
+	        		alert(element.msg);
+	        	}); 
+	        }
+	    });
+	*/}
 }
