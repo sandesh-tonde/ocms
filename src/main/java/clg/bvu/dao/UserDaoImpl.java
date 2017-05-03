@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import clg.bvu.model.User;
+
 
 
 @Repository(value="UserDaoImpl")
@@ -29,6 +31,18 @@ public class UserDaoImpl implements UserDao {
 	@Qualifier("sessionFactory")
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
+	}
+
+	@Override
+	public User getUserData(Integer userId) {
+		
+		Session session =sessionFactory.getCurrentSession();
+		Criteria criteria = session.createCriteria(User.class)
+				.add(Restrictions.eq("userId", userId));
+				
+		User u=(User) criteria.uniqueResult();
+		return u;
+		//return null;
 	}
 	
 	

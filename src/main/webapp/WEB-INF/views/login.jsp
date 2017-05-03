@@ -21,16 +21,16 @@
        <script type="text/javascript">         	   
 			function disableBackButton(){window.history.forward();}
 			setTimeout("disableBackButton()", 0);
-			window.onunload=function(){null};
+			contextApplicationPath = "${pageContext.request.contextPath}";
 	  </script>
     </head>
-    <body class="login2background" background="<c:url value="/resources/images/main-background.png"/>">
+    <body  class="login2background" background="<c:url value="/resources/images/main-background.png"/>">
         <div class="container">  
-        <center>
+        <center><br><br><br>
          <div class="col-lg-12 col-md-12 col-sm-12">
            <div class="row">
             <div><a href="#"><h1><b> Bharati Vidyapeeth College Of Engineering,Pune</b></h1></a></div>
-           </div>
+           </div><br><br><br>
            <div class="row">
             <div><a href="#" style="color:sky-blue"><h1><b> Online Counselling Management System</b></h1></a></div>
            </div>
