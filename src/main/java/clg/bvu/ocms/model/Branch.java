@@ -1,4 +1,4 @@
-package clg.bvu.model;
+package clg.bvu.ocms.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

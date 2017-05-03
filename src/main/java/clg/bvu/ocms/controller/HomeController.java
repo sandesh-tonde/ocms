@@ -1,4 +1,4 @@
-package clg.bvu.controller;
+package clg.bvu.ocms.controller;
 
 import java.text.DateFormat;
 import java.util.Date;

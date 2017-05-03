@@ -1,4 +1,4 @@
-package clg.bvu.service;
+package clg.bvu.ocms.service;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import clg.bvu.dao.UserDao;
-import clg.bvu.model.User;
+import clg.bvu.ocms.dao.UserDao;
+import clg.bvu.ocms.model.User;
 
 
 @Service("UserServiceImpl")

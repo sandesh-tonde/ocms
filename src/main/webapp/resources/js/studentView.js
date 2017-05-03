@@ -66,3 +66,48 @@ function studentInformationView(){
         }       
     });	
 }
+
+function documentationView(){
+	$.ajax({
+		type: "POST",
+        url : contextApplicationPath+'/StudentController/getDocumentsDetails',         
+        data : {},
+        dataType: 'json',
+        success : function(json) {
+        	var html='<h2 id="h2.-bootstrap-heading">Documents</h2><br><br>'
+        		+'<table class="table">'
+				+'<thead>'
+				+'	<tr>'
+				+'		<th>Document Type</th>'
+				+'		<th>File</th>'
+				
+				+'	</tr>'
+				+'</thead>'
+				+'<tbody>';
+        	$(json).each(function(index, element) {
+        		
+        		html +='	<tr>'
+				+'		<td>'+element.type+'</td>'
+				+"<td><img src='"+contextApplicationPath+"/resources/images/fileIcon.png' style='width:50px;height:50px;' onClick='showImagePopup(\""+element.path+"\")'></td>"
+				+'	</tr>';
+				
+        		
+			}); 
+        	if ((json.length) < 3){
+        		html +='	<tr>'
+    				+'		<td><input type= "text" id = "document_type" /></td>'
+    				+'		<td><form id="fileForm"><input type= "file" id = "document_file" name="document_file"/><h3><a href="#" onclick="uploadFile()"><span class="label label-success">Upload</span></a></h3></form></td>'
+    				+'	</tr>';
+        	}
+        	html +='</tbody>'
+			+'</table>';
+        	
+        	$("#main-containt").empty();
+			$("#main-containt").html(html);
+        },
+        error : function(json) {
+        	alert("some error");	  
+        }       
+    });	
+	
+}

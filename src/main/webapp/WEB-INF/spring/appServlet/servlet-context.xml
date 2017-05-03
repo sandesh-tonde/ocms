@@ -24,7 +24,7 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="clg.bvu" /><!-- .controller,com.vflabs.ocr.dao,com.vflabs.ocr.model,com.vflabs.ocr.service -->
+	<context:component-scan base-package="clg.bvu.ocms" /><!-- .controller,com.vflabs.ocr.dao,com.vflabs.ocr.model,com.vflabs.ocr.service -->
 	<!-- 	configure database.properties -->
 	<beans:bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 	  	<beans:property name="location">
@@ -47,7 +47,7 @@
 	<!-- Hibernate 4 Session Factory  -->
 	<beans:bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 	    <beans:property name="dataSource" ref="dataSource" />
-	    <beans:property name="packagesToScan" value="clg.bvu.model"/>
+	    <beans:property name="packagesToScan" value="clg.bvu.ocms.model"/>
 	    <beans:property name="hibernateProperties">
             <beans:props>
                   <beans:prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</beans:prop>

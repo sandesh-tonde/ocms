@@ -1,4 +1,4 @@
-package clg.bvu.model;
+package clg.bvu.ocms.model;
 
 import java.util.Date;
 import java.util.List;
@@ -74,22 +74,11 @@ public class User {
 	@JoinColumn(name="user_id",referencedColumnName="user_id")
 	private Preference preference;
 	
-	/*@OneToMany(targetEntity=Stockist.class,cascade=CascadeType.ALL)
-	@JoinColumn(name="USER_ID",referencedColumnName="USER_ID")
-	private List<Stockist> stockist;
+	@OneToMany(targetEntity=Documents.class,cascade=CascadeType.ALL)
+	@JoinColumn(name="user_id",referencedColumnName="user_id")
+	private List<Documents> documents;
 	
-	@OneToMany(targetEntity=Product.class,cascade=CascadeType.ALL)
-	@JoinColumn(name="USER_ID",referencedColumnName="USER_ID")
-	private List<Product> product;
 	
-	@OneToMany(targetEntity=StockistOrder.class,cascade=CascadeType.ALL)
-	@JoinColumn(name="USER_ID",referencedColumnName="USER_ID")
-	private List<StockistOrder> order;
-	
-	@OneToMany(targetEntity=Service.class,cascade=CascadeType.ALL)
-	@JoinColumn(name="USER_ID",referencedColumnName="USER_ID")
-	private List<Service> service;*/
-
 	public Integer getUserId() {
 		return userId;
 	}
@@ -224,6 +213,22 @@ public class User {
 
 	public void setSessionTime(Integer sessionTime) {
 		this.sessionTime = sessionTime;
+	}
+
+	public Preference getPreference() {
+		return preference;
+	}
+
+	public void setPreference(Preference preference) {
+		this.preference = preference;
+	}
+
+	public List<Documents> getDocuments() {
+		return documents;
+	}
+
+	public void setDocuments(List<Documents> documents) {
+		this.documents = documents;
 	}
 	
 	

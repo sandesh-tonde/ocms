@@ -1,8 +1,8 @@
-package clg.bvu.dao;
+package clg.bvu.ocms.dao;
 
 import java.util.List;
 
-import clg.bvu.model.User;
+import clg.bvu.ocms.model.User;
 
 
 

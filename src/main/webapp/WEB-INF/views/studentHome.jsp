@@ -61,17 +61,16 @@ contextApplicationPath = "${pageContext.request.contextPath}";
 									<ul>
 										<li><a href="#" onclick="councellingProcedureView()">Counselling Procedure </a></li>
 										<li><a href="#" onclick="studentInformationView()">Student Information</a></li>
-										<li><a href="#" onclick="">Documentation</a></li>
-										<li><a href="#" onclick="">Online Counselling</a></li>
-										<li><a href="#" onclick="">Seat Status</a></li>
+										<li><a href="#" onclick="documentationView()">Documentation</a></li>
+										<li><a href="#" onclick="onlineCounsellingView()">Online Counselling</a></li>
+										<li><a href="#" onclick="seatStatusView()">Seat Status</a></li>
 										
 									</ul>
 								</div>
 								
 							</div>
-							<div id="main-containt" class="col-md-9 product-agileinfon-grid1">
-								
-							</div>
+							<div id="main-containt" class="col-md-9 product-agileinfon-grid1"></div>
+							<div id="ViewImagesPopUp"></div> 
 							<div class="clearfix"> </div>
 						</div>
 					</div>

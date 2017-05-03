@@ -1,4 +1,4 @@
-package clg.bvu.dao;
+package clg.bvu.ocms.dao;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
-import clg.bvu.model.User;
+import clg.bvu.ocms.model.User;
 
 
 

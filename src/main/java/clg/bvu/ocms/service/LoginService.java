@@ -1,6 +1,6 @@
-package clg.bvu.service;
+package clg.bvu.ocms.service;
 
-import clg.bvu.model.User;
+import clg.bvu.ocms.model.User;
 
 public interface LoginService {
 

@@ -1,4 +1,4 @@
-package clg.bvu.service;
+package clg.bvu.ocms.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import clg.bvu.dao.LoginDao;
-import clg.bvu.model.User;
+import clg.bvu.ocms.dao.LoginDao;
+import clg.bvu.ocms.model.User;
 
 
 
