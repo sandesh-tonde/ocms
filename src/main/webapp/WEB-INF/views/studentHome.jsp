@@ -26,6 +26,7 @@ contextApplicationPath = "${pageContext.request.contextPath}";
 <script src="<c:url value="/resources/js/bootstrap-3.1.1.min.js"/>" type="text/javascript"></script>
 <script src="<c:url value="/resources/js/studentView.js"/>" type="text/javascript"></script>
 <script src="<c:url value="/resources/js/global.js"/>" type="text/javascript"></script>
+<script src="<c:url value="/resources/js/jquery.form.js"/>" type="text/javascript"></script>
 
 </head>
 <body onload="councellingProcedureView()">

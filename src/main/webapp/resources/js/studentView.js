@@ -87,7 +87,7 @@ function documentationView(){
         	$(json).each(function(index, element) {
         		
         		html +='	<tr>'
-				+'		<td>'+element.type+'cc'
+				+'		<td>'+element.type+'</td>'
 				+"<td><img src='"+contextApplicationPath+"/resources/images/fileIcon.png' style='width:50px;height:50px;' onClick='showImagePopup(\""+element.path+"\")'></td>"
 				+'	</tr>';
 				
@@ -103,7 +103,7 @@ function documentationView(){
         			+'	<tr>'
         			+'		<td><input type= "text" id = "document_type"  name="document_type" /></td>'
     				+'		<td><input type= "file" id = "document_file" name="document_file"/><br>'
-    				+'		<input type= "submit" class="btn btn-primary m-b-10" onclick="return validate()" value="upload"></td>'
+    				+'		<button type="submit" class="btn btn-primary m-b-10" onclick="return validate()">Upload</button></td>'
     				+'</tr>'
     				+'</table>'
     				+'</form>';
@@ -111,6 +111,7 @@ function documentationView(){
         	
         	$("#main-containt").empty();
 			$("#main-containt").html(html);
+			ajaxFileUpload('fileForm');
         },
         error : function(json) {
         	alert("some error");	  
@@ -119,20 +120,33 @@ function documentationView(){
 	
 }
 
+function ajaxFileUpload(FormId)
+{
+	var options = {
+			success : function(json) {
+				alert("File Uploaded");
+				documentationView();
+			}
+		};
+$('#' + FormId).ajaxForm(options);
+}
+
 function validate(){
 	
+	var state=false;
+	var document_file=$('#document_file').val();
+	var document_type=$('#document_type').val();
 	
-	myFormData.append('document_type', document_type);
-	if(document_file==undefined ){
+	if(document_file==undefined || document_file=="" ){
 		alert("Please select File");
-		return false;
+		state=false;
 	}
-	else if(document_type==undefined ){
+	else if(document_type==undefined ||  document_type == ""){
 		alert("Please Enter File Type");
-		return false;
+		state=false;
 	}
 	else{
-		return true;
+		state=true;
 		/*
 		var data = new FormData($('#fileForm')[0]);
 		$.ajax({
@@ -153,4 +167,152 @@ function validate(){
 	        }
 	    });
 	*/}
+	return state;
+}
+
+function onlineCounsellingView(){
+	
+	$.ajax({
+		type: "POST",
+        url : contextApplicationPath+'/StudentController/getPreferencesDetails',         
+        data : {},
+        dataType: 'json',
+        success : function(json) {
+        	var html='<h2 id="h2.-bootstrap-heading">Online Councelling</h2><br><br>'
+        		+'<table class="table">'
+				+'<thead>'
+				+'	<tr>'
+				+'		<th>Option</th>'
+				+'		<th>Branch</th>'
+				
+				+'	</tr>'
+				+'</thead>'
+				+'<tbody>';
+        	$(json).each(function(index, element) {
+        		
+        		html +='	<tr>'
+				+'		<td>'+element.option+'</td>'
+				+'		<td>'+element.branchName+'</td>'
+				+'	</tr>';
+				
+        		
+			}); 
+        	
+        	
+        	
+        	if ((json.length) < 1){
+				html +='	<tr>'
+				+'		<td>Option1</td>'
+				+'		<td><select class="form-control" style=" width: 50%" id="option1"></select></td>'
+				+'	</tr>'
+				+'	<tr>'
+				+'		<td>Option2</td>'
+				+'		<td><select class="form-control" style=" width: 50%" id="option2"></select></td>'
+				+'	</tr>'
+				+'	<tr>'
+				+'		<td>Option3</td>'
+				+'		<td><select class="form-control" style=" width: 50%" id="option3"></select></td>'
+				+'	</tr>';
+        		getSubViewCouncelling();
+        		
+        	}
+        	html +='</tbody>'
+    			 +'</table>';
+        	if ((json.length) < 1)
+        		html +='<button type="button" class="btn btn-primary m-b-10" style=" margin-left: 45%" onclick="savePreferences()">Save</button></td>';
+        	
+        	$("#main-containt").empty();
+			$("#main-containt").html(html);
+			
+        },
+        error : function(json) {
+        	alert("some error");	  
+        }       
+    });	
+	
+	
+}
+
+function savePreferences(){
+	var option1 = $("#option1").val();
+	var option2 = $("#option2").val();
+	var option3 = $("#option3").val();
+	
+	$.ajax({
+		type: "POST",
+        url : contextApplicationPath+'/StudentController/savePreferences',         
+        data : {"option1" : option1 ,"option2" : option2 , "option3" : option3 },
+        dataType: 'json',
+        success : function(json) {
+        	alert("Preferences Saved Successfully");
+        	onlineCounsellingView();
+        	
+        },
+        error : function(json) {
+        	alert("some error");	  
+        }       
+    });	
+}
+
+function getSubViewCouncelling(){
+	$.ajax({
+		type: "POST",
+        url : contextApplicationPath+'/StudentController/getBranchesDetails',         
+        data : {},
+        dataType: 'json',
+        success : function(json) {
+        	
+        	$(json).each(function(index, element) {
+				$("#option1").append("<option value='"+element.branchId+"'>"+element.branchName+"</option>");
+				$("#option2").append("<option value='"+element.branchId+"'>"+element.branchName+"</option>");
+				$("#option3").append("<option value='"+element.branchId+"'>"+element.branchName+"</option>");
+        	});	
+        },
+        error : function(json) {
+        	alert("some error");	  
+        }       
+    });	
+}
+
+function seatStatusView(){
+	$.ajax({
+		type: "POST",
+        url : contextApplicationPath+'/StudentController/getBranchesDetails',         
+        data : {},
+        dataType: 'json',
+        success : function(json) {
+        	var html='<h2 id="h2.-bootstrap-heading">Seat Status</h2><br><br>'
+        		+'<table class="table">'
+				+'<thead>'
+				+'	<tr>'
+				+'		<th>No</th>'
+				+'		<th>Branch</th>'
+				+'		<th>Seats</th>'
+				
+				+'	</tr>'
+				+'</thead>'
+				+'<tbody>';
+        	$(json).each(function(index, element) {
+        		
+        		html +='	<tr>'
+				+'		<td>'+index+'</td>'
+				+'		<td>'+element.branchName+'</td>'
+				+'		<td>'+element.availableSeats+'</td>'
+				+'	</tr>';
+				
+        		
+			}); 
+        	
+        	html +='</tbody>'
+			+'</table>';
+        	
+        	       	
+        	$("#main-containt").empty();
+			$("#main-containt").html(html);
+			
+        },
+        error : function(json) {
+        	alert("some error");	  
+        }       
+    });	
 }

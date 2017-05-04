@@ -56,6 +56,7 @@ public class DocumentServiceImpl implements DocumentService {
 
 
 	@Override
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public String uploadDocument(MultipartFile file,String type,Integer userId) {
 		try {
 			String fileName=CommonFunctions.writeDocumentAndGetFileDB_Path(file);

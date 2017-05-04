@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import clg.bvu.ocms.service.BranchService;
 import clg.bvu.ocms.service.DocumentService;
+import clg.bvu.ocms.service.PreferencesService;
 import clg.bvu.ocms.service.UserService;
 
 @Controller
@@ -22,6 +24,8 @@ public class StudentController {
 	
 private UserService userService;
 private DocumentService documentrService;
+private PreferencesService preferencesService;
+private BranchService branchService;
 	
 	@Autowired
 	@Qualifier("UserServiceImpl")
@@ -33,6 +37,18 @@ private DocumentService documentrService;
 	@Qualifier("DocumentServiceImpl")
 	public void setDocumentService(DocumentService documentrService) {
 		this.documentrService = documentrService;
+	}
+	
+	@Autowired
+	@Qualifier("PreferencesServiceImpl")
+	public void setPreferencesService(PreferencesService preferencesService) {
+		this.preferencesService = preferencesService;
+	}
+	
+	@Autowired
+	@Qualifier("BranchServiceImpl")
+	public void setBranchService(BranchService branchService) {
+		this.branchService = branchService;
 	}
 	
 	@RequestMapping(value="/getUserDetails",method=RequestMethod.POST)
@@ -57,6 +73,29 @@ private DocumentService documentrService;
 		Integer userId=(Integer)request.getSession().getAttribute("user_id");		
 		return documentrService.uploadDocument(file,type,userId);
 	}
+	
+	@RequestMapping(value="/getPreferencesDetails",method=RequestMethod.POST)
+	@ResponseBody
+	private  String getPreferencesDetails(HttpServletRequest request){
+		Integer userId=(Integer)request.getSession().getAttribute("user_id");		
+		return preferencesService.getPreferences(userId);
+	}
 
+	@RequestMapping(value="/getBranchesDetails",method=RequestMethod.POST)
+	@ResponseBody
+	private  String getBranchesDetails(HttpServletRequest request){
+		Integer userId=(Integer)request.getSession().getAttribute("user_id");		
+		return branchService.getBraches();
+	}
+	
+	@RequestMapping(value="/savePreferences",method=RequestMethod.POST)
+	@ResponseBody
+	private  String savePreferences(@RequestParam(value="option1",required=true) Integer option1
+			,@RequestParam(value="option2",required=true) Integer option2
+			,@RequestParam(value="option3",required=true) Integer option3
+			,HttpServletRequest request){
+		Integer userId=(Integer)request.getSession().getAttribute("user_id");		
+		return preferencesService.savePreferences(option1,option2,option3,userId);
+	}
 	
 }
