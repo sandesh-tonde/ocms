@@ -17,7 +17,7 @@ import clg.bvu.ocms.constant.CommonFunctions;
 import clg.bvu.ocms.constant.Constant;
 import clg.bvu.ocms.dao.DocumentDao;
 import clg.bvu.ocms.model.Documents;
-import clg.bvu.ocms.model.User;
+
 
 @Service("DocumentServiceImpl")
 public class DocumentServiceImpl implements DocumentService {
