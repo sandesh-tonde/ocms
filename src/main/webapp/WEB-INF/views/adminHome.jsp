@@ -24,6 +24,7 @@ contextApplicationPath = "${pageContext.request.contextPath}";
 <script src="<c:url value="/resources/js/jquery.js"/>" type="text/javascript"></script>
 <script src="<c:url value="/resources/js/main.js"/>" type="text/javascript"></script>
 <script src="<c:url value="/resources/js/bootstrap-3.1.1.min.js"/>" type="text/javascript"></script>
+<script src="<c:url value="/resources/js/adminView.js"/>" type="text/javascript"></script>
 <script src="<c:url value="/resources/js/studentView.js"/>" type="text/javascript"></script>
 <script src="<c:url value="/resources/js/global.js"/>" type="text/javascript"></script>
 <script src="<c:url value="/resources/js/jquery.form.js"/>" type="text/javascript"></script>
@@ -60,10 +61,10 @@ contextApplicationPath = "${pageContext.request.contextPath}";
 								<div class="brand-w3l">
 									<h3>Action</h3>
 									<ul>
-										<li><a href="#" onclick="councellingProcedureView()">Counselling Procedure </a></li>
-										<li><a href="#" onclick="studentInformationView()">Student Information</a></li>
-										<li><a href="#" onclick="documentationView()">Documentation</a></li>
-										<li><a href="#" onclick="onlineCounsellingView()">Online Counselling</a></li>
+										<li><a href="#" onclick="homeView()">Home</a></li>
+										<li><a href="#" onclick="resultView()">Result</a></li>
+										<li><a href="#" onclick="adminDocumentView()">Documentation</a></li>
+										<li><a href="#" onclick="adminBranchView()">Branch</a></li>
 										<li><a href="#" onclick="seatStatusView()">Seat Status</a></li>
 										
 									</ul>

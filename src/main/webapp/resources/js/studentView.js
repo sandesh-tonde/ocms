@@ -80,7 +80,7 @@ function documentationView(){
 				+'	<tr>'
 				+'		<th>Document Type</th>'
 				+'		<th>File</th>'
-				
+				+'		<th>Status</th>'
 				+'	</tr>'
 				+'</thead>'
 				+'<tbody>';
@@ -88,7 +88,8 @@ function documentationView(){
         		
         		html +='	<tr>'
 				+'		<td>'+element.type+'</td>'
-				+"<td><img src='"+contextApplicationPath+"/resources/images/fileIcon.png' style='width:50px;height:50px;' onClick='showImagePopup(\""+element.path+"\")'></td>"
+				+"		<td><img src='"+contextApplicationPath+"/resources/images/fileIcon.png' style='width:50px;height:50px;' onClick='showImagePopup(\""+element.path+"\")'></td>"
+				+'		<td>'+element.status+'</td>'
 				+'	</tr>';
 				
         		

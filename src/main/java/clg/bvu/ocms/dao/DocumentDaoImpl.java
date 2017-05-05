@@ -53,6 +53,7 @@ public class DocumentDaoImpl implements DocumentDao {
 			doc.setUser(u);
 			doc.setPath(path);
 			doc.setType(type);
+			doc.setStatus("Varification Pending");
 			session.save(doc);
 			return 1;
 		}

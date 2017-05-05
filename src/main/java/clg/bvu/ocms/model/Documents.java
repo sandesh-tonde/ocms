@@ -24,6 +24,9 @@ public class Documents {
 	@Column(name="path")
 	private String path;
 	
+	@Column(name="status")
+	private String status;
+	
 	@ManyToOne
 	@JoinColumn(name="user_id")
 	private User user;
@@ -58,6 +61,14 @@ public class Documents {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 	

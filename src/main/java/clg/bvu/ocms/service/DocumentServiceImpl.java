@@ -42,6 +42,7 @@ public class DocumentServiceImpl implements DocumentService {
 			try {
 				json.put("type", doc.getType());
 				json.put("path", doc.getPath());
+				json.put("status", doc.getStatus());
 				jsonArray.put(json);
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
