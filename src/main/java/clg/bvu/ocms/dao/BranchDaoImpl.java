@@ -39,5 +39,11 @@ public class BranchDaoImpl implements BranchDao {
 		List<Branch> branches= criteria.list();
 		return branches;
 	}
+
+	@Override
+	public void saveBranch(Branch branch) {
+		Session session =sessionFactory.getCurrentSession();
+		session.save(branch);
+	}
 	
 }

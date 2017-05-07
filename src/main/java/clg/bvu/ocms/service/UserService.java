@@ -9,6 +9,8 @@ public interface UserService {
 
 	String setUserTimeSlot(String startDAte, String endDate, String[] userIds);
 
+	String generateResult(String[] userIds);
+
 
 
 }

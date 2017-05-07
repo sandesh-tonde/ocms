@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -69,6 +70,16 @@ public class UserDaoImpl implements UserDao {
 			session.update(u);
 		}
 		
+	}
+
+	@Override
+	public List<User> getUsers(List<Integer> userId) {
+		Session session =sessionFactory.getCurrentSession();
+		Criteria criteria = session.createCriteria(User.class, "user")
+				.add(Restrictions.in("user.user_id" ,userId))
+				.addOrder(Order.asc("user.rank"));
+		List<User> users= criteria.list();
+		return users;
 	}
 	
 	

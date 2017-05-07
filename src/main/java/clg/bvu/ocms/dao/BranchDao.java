@@ -8,4 +8,6 @@ public interface BranchDao {
 
 	List<Branch> getBraches();
 
+	void saveBranch(Branch branch);
+
 }

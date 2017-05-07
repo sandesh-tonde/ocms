@@ -10,4 +10,6 @@ public interface DocumentDao {
 
 	int setDocumentPath(String path, String type, Integer userId);
 
+	void updateDocumentStatus(Integer id, String status);
+
 }

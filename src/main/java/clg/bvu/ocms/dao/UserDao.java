@@ -15,6 +15,8 @@ public interface UserDao {
 
 	void setUserTimeSlot(Date sDate, Date eDate, List<Integer> userId);
 
+	List<User> getUsers(List<Integer> userId);
+
 
 
 }

@@ -9,4 +9,6 @@ public interface DocumentService {
 
 	String uploadDocument(MultipartFile file, String type, Integer userId);
 
+	String updateDocumentStatus(Integer id, String status);
+
 }

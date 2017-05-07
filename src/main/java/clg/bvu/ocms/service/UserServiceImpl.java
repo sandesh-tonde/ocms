@@ -2,7 +2,9 @@ package clg.bvu.ocms.service;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,7 +16,9 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import clg.bvu.ocms.constant.CommonFunctions;
+import clg.bvu.ocms.dao.BranchDao;
 import clg.bvu.ocms.dao.UserDao;
+import clg.bvu.ocms.model.Branch;
 import clg.bvu.ocms.model.Documents;
 import clg.bvu.ocms.model.User;
 
@@ -23,11 +27,18 @@ import clg.bvu.ocms.model.User;
 public class UserServiceImpl implements UserService {
 	
 	private UserDao userDao;
+	private BranchDao branchDao;
 
 	@Autowired
 	@Qualifier("UserDaoImpl")
 	public void setUserDetailsDao(UserDao userDao) {
 		this.userDao = userDao;
+	}
+	
+	@Autowired
+	@Qualifier("BranchDaoImpl")
+	public void setBranchDao(BranchDao branchDao) {
+		this.branchDao = branchDao;
 	}
 
 	@Override
@@ -131,6 +142,32 @@ public class UserServiceImpl implements UserService {
 		}
 		userDao.setUserTimeSlot(sDate,eDate,userId);
 		return new JSONObject().toString();
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
+	public String generateResult(String[] userIds) {
+		List<Branch> branches =branchDao.getBraches();
+		Map<Integer,Branch> branchMap =new HashMap<Integer, Branch>();
+		for(Branch branch : branches){
+			branchMap.put(branch.getBranchId(), branch);
+		}
+		List<Integer> userId= new ArrayList<Integer>();
+		for(String id : userIds){
+			userId.add(Integer.parseInt(id.trim()));
+		}
+		List<User> users=userDao.getUsers(userId);
+		for(User user : users){
+			if(user.getPreference().getOption1().getAvailableSeats() >0){
+				user.getPreference().setResult(user.getPreference().getOption1().getBranchName());
+			} else if(user.getPreference().getOption2().getAvailableSeats() >0){
+				user.getPreference().setResult(user.getPreference().getOption2().getBranchName());
+			} else if(user.getPreference().getOption3().getAvailableSeats() >0){
+				user.getPreference().setResult(user.getPreference().getOption3().getBranchName());
+			}
+			
+		}
+		return null;
 	}
 
 }

@@ -63,4 +63,17 @@ public class DocumentDaoImpl implements DocumentDao {
 		return 0;
 	}
 
+	@Override
+	public void updateDocumentStatus(Integer id, String status) {
+		Session session =sessionFactory.getCurrentSession();
+		try {
+			Documents doc = (Documents) session.load(Documents.class, id);
+			doc.setStatus(status);
+			session.save(doc);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
 }

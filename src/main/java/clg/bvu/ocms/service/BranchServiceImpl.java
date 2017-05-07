@@ -47,6 +47,15 @@ public class BranchServiceImpl implements BranchService {
 		return jsonArray.toString();
 	}
 
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
+	public String saveBranch(String branchName, Integer availableSeats,
+			Integer totalSeats) {
+		Branch branch = new Branch();
+		branchDao.saveBranch(branch);
+		return "";
+	}
+
 	
 	
 

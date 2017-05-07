@@ -290,8 +290,8 @@ function showImagePopupAdmin(id,path){
         + "                <input value='x' onClick='hideFilePopup()' type='button' class='close' data-dismiss='modal' aria-hidden='true'>"
         + "                <h4 class='modal-title' id='myModalLabel'><strong>File Details</strong></h4>"
         + '<h2>'
-		+ "		<a href='#' onclick='documentVarification(\""+app+"\")'><span class='label label-default'>Approve</span></a>"
-		+ "		<a href='#' onclick='documentVarification(\""+diapp+"\")'><span class='label label-default'>DisApprove</span></a>"
+		+ "		<a href='#' onclick='documentVarification("+id+",\""+app+"\")'><span class='label label-default'>Approve</span></a>"
+		+ "		<a href='#' onclick='documentVarification("+id+",\""+diapp+"\")'><span class='label label-default'>DisApprove</span></a>"
 		+ '</h2>'
         + "            </div>"
         + "			       <div class='panel-body'>"
@@ -311,8 +311,21 @@ function showImagePopupAdmin(id,path){
 
 }
 
-function documentVarification(status){
-	alert(status);
+function documentVarification(id,status){
+	$.ajax({
+		type: "POST",
+        url : contextApplicationPath+'/AdminController/updateDocumentStatus',         
+        data : {"id":id,"status":status},
+        dataType: 'json',
+        success : function(json) {
+        	alert("Document Status Updated");
+        	adminBranchView();
+        },
+        error : function(json) {
+        	alert("some error");	  
+        }       
+    });	
+	//alert(status);
 	
 }
 function adminBranchView() {
@@ -324,6 +337,9 @@ function adminBranchView() {
         dataType: 'json',
         success : function(json) {
         	var html='<h2 id="h2.-bootstrap-heading">Seat Status</h2><br><br>'
+        		+ '<h2>'
+        		+ '		<a href="#" onclick="addBranch()"><span class="label label-default">Add New</span></a>'
+        		+ '</h2>'
         		+'<table class="table">'
 				+'<thead>'
 				+'	<tr>'
@@ -335,9 +351,9 @@ function adminBranchView() {
 				+'</thead>'
 				+'<tbody>';
         	$(json).each(function(index, element) {
-        		
+        		var i=index+1;
         		html +='	<tr>'
-				+'		<td>'+index+'</td>'
+				+'		<td>'+i+'</td>'
 				+'		<td>'+element.branchName+'</td>'
 				+'		<td>'+element.availableSeats+'</td>'
 				+'	</tr>';
@@ -358,4 +374,67 @@ function adminBranchView() {
         }       
     });	
 
+}
+
+function addBranch(){
+	
+var html= '<div class="container" style="width:80%">'
+		+ '<div class="col-md-5">'
+		+ '    <div class="form-group">'
+		+ '        <div class="input-group text">'
+		+ '            <input type="text"  placeholder="Branch Name"  id="branchName"class="form-control" />'
+		+ '        </div>'
+		+ '    </div>'
+		+ '</div>'
+		+ '<div class="col-md-5">'
+		+ '    <div class="form-group">'
+		+ '        <div class="input-group text">'
+		+ '            <input type="text"  placeholder="Available Seats"  id="availableSeats"class="form-control" />'
+		+ '        </div>'
+		+ '    </div>'
+		+ '</div>'
+		+ '<div class="col-md-5">'
+		+ '    <div class="form-group">'
+		+ '        <div class="input-group text">'
+		+ '            <input type="text"  placeholder="Total Seats"  id="totalSeats"class="form-control" />'
+		+ '        </div>'
+		+ '    </div>'
+		+ '</div>'
+		+ '<div class="col-md-5">'
+		+ '    <div class="form-group">'
+		+ '		<button type="button" class="btn btn-primary m-b-10" style=" margin-left: 90%" onclick="saveBranch()">Save</button></td>'
+		+ '    </div>'
+		+ '</div>'
+		+ '</div>';
+	
+}
+
+function saveBranch(){
+	
+	var branchName=$("#branchName").val();
+	var availableSeats=$("#availableSeats").val();
+	var totalSeats=$("#totalSeats").val();
+	
+	if(branchName == "" || availableSeats == "" || totalSeats == ""){
+		alert("Enter Values");
+		return;
+	} else if(isNaN(availableSeats) || isNaN(totalSeats)){
+		alert("Enter Numeric Values");
+		return;
+	}
+	
+	$.ajax({
+		type: "POST",
+        url : contextApplicationPath+'/AdminController/saveBranch',         
+        data : {"branchName":branchName,"availableSeats":availableSeats,"totalSeats":totalSeats},
+        dataType: 'json',
+        success : function(json) {
+        	alert("Branch Added");
+        	adminBranchView();
+        },
+        error : function(json) {
+        	alert("some error");	  
+        }       
+    });	
+	
 }

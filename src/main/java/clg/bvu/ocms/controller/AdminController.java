@@ -65,6 +65,33 @@ public class AdminController {
 			return userService.setUserTimeSlot(startDAte,endDate,userIds);
 		}
 		
+		@RequestMapping(value="/saveBranch",method=RequestMethod.POST)
+		@ResponseBody
+		private  String saveBranch(@RequestParam(value="branchName",required=true) String branchName
+				,@RequestParam(value="availableSeats",required=true) Integer availableSeats
+				,@RequestParam(value="totalSeats",required=true) Integer totalSeats
+				,HttpServletRequest request){
+			
+			return branchService.saveBranch(branchName,availableSeats,totalSeats);
+		}
 		
-
+		@RequestMapping(value="/updateDocumentStatus",method=RequestMethod.POST)
+		@ResponseBody
+		private  String updateDocumentStatus(@RequestParam(value="status",required=true) String status
+				,@RequestParam(value="id",required=true) Integer id
+				,HttpServletRequest request){
+			
+			return documentrService.updateDocumentStatus(id,status);
+		}
+		
+		@RequestMapping(value="/result",method=RequestMethod.POST)
+		@ResponseBody
+		private  String result(@RequestParam(value="userId",required=true) String userId
+				,HttpServletRequest request){
+			String userIds[]=userId.split(",");
+			return userService.generateResult(userIds);
+		}
+		
+		
+		
 }
