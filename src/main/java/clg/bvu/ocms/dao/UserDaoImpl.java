@@ -1,5 +1,6 @@
 package clg.bvu.ocms.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -43,6 +44,31 @@ public class UserDaoImpl implements UserDao {
 		User u=(User) criteria.uniqueResult();
 		return u;
 		//return null;
+	}
+
+	@Override
+	public List<User> getBatchWiseUserDetails(Integer batch) {
+		Session session =sessionFactory.getCurrentSession();
+		Criteria criteria = session.createCriteria(User.class, "user")
+				.add(Restrictions.eq("user.userType" ,"student"))
+				.setFirstResult((batch-1)*60)
+				.setMaxResults(60);
+		List<User> users= criteria.list();
+		return users;
+		//return null;
+	}
+
+	@Override
+	public void setUserTimeSlot(Date sDate, Date eDate, List<Integer> userId) {
+		Session session =sessionFactory.getCurrentSession();
+		for(Integer id :userId){
+			User u=(User) session.load(User.class, id);
+			u.setCouncellingDate(sDate);
+			u.setStartTime(sDate);
+			u.setEndTime(eDate);
+			session.update(u);
+		}
+		
 	}
 	
 	

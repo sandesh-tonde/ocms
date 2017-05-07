@@ -10,6 +10,8 @@
  <link  href="<c:url value="/resources/css/font-awesome.css" /> rel="stylesheet">
  <link  href="<c:url value="/resources/css/style.css" />" rel="stylesheet" media="all">
  <link  href="<c:url value="/resources/css/bootstrap.css" />" rel="stylesheet" media="all">
+<%--  <link  href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet" media="all"> --%>
+ <link  href="<c:url value="/resources/css/bootstrap-datepicker.css" />" rel="stylesheet" media="all">
 <!--css-->
 
    
@@ -21,16 +23,19 @@
 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
 contextApplicationPath = "${pageContext.request.contextPath}";
 </script>
+<script src="<c:url value="/resources/js/Moment.js"/>" type="text/javascript"></script>
 <script src="<c:url value="/resources/js/jquery.js"/>" type="text/javascript"></script>
 <script src="<c:url value="/resources/js/main.js"/>" type="text/javascript"></script>
 <script src="<c:url value="/resources/js/bootstrap-3.1.1.min.js"/>" type="text/javascript"></script>
+<script src="<c:url value="/resources/js/jquery.min.js"/>" type="text/javascript"></script>
+<script src="<c:url value="/resources/js/datetime-picker.js"/>" type="text/javascript"></script>
 <script src="<c:url value="/resources/js/adminView.js"/>" type="text/javascript"></script>
 <script src="<c:url value="/resources/js/studentView.js"/>" type="text/javascript"></script>
 <script src="<c:url value="/resources/js/global.js"/>" type="text/javascript"></script>
 <script src="<c:url value="/resources/js/jquery.form.js"/>" type="text/javascript"></script>
 
 </head>
-<body onload="councellingProcedureView()">
+<body onload="homeView()">
 	<!--header-->
 		<div class="header">
 			<div class="header-top">
