@@ -98,6 +98,7 @@ public class UserServiceImpl implements UserService {
 					for(Documents doc : docs){
 						JSONObject docJson =new JSONObject();
 						try{
+					    docJson.put("docId", doc.getDocumentsId());
 						docJson.put("type", doc.getType());
 						docJson.put("path", doc.getPath());
 						docJson.put("status", doc.getStatus());

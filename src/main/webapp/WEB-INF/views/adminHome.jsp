@@ -70,7 +70,7 @@ contextApplicationPath = "${pageContext.request.contextPath}";
 										<li><a href="#" onclick="resultView()">Result</a></li>
 										<li><a href="#" onclick="adminDocumentView()">Documentation</a></li>
 										<li><a href="#" onclick="adminBranchView()">Branch</a></li>
-										<li><a href="#" onclick="seatStatusView()">Seat Status</a></li>
+<!-- 										<li><a href="#" onclick="seatStatusView()">Seat Status</a></li> -->
 										
 									</ul>
 								</div>
