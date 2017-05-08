@@ -95,7 +95,7 @@ public class DocumentServiceImpl implements DocumentService {
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 	public String updateDocumentStatus(Integer id, String status) {
 		documentDao.updateDocumentStatus(id,status);
-		return "";
+		return new JSONObject().toString();
 	}
 
 

@@ -76,10 +76,17 @@ public class UserDaoImpl implements UserDao {
 	public List<User> getUsers(List<Integer> userId) {
 		Session session =sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(User.class, "user")
-				.add(Restrictions.in("user.user_id" ,userId))
+				.add(Restrictions.in("user.userId" ,userId))
 				.addOrder(Order.asc("user.rank"));
 		List<User> users= criteria.list();
 		return users;
+	}
+
+	@Override
+	public void updateUser(User user) {
+		Session session =sessionFactory.getCurrentSession();
+		session.update(user);
+		
 	}
 	
 	

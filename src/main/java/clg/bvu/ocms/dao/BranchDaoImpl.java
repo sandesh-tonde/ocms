@@ -43,7 +43,27 @@ public class BranchDaoImpl implements BranchDao {
 	@Override
 	public void saveBranch(Branch branch) {
 		Session session =sessionFactory.getCurrentSession();
-		session.save(branch);
+		try{
+			session.save(branch);
+		} catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public void updateBranches(List<Branch> branch) {
+		Session session =sessionFactory.getCurrentSession();
+		try{
+			for(Branch b :branch){
+			session.update(b);
+			}
+		} catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
 	}
 	
 }

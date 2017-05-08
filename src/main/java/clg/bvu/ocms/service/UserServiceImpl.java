@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -149,8 +150,10 @@ public class UserServiceImpl implements UserService {
 	public String generateResult(String[] userIds) {
 		List<Branch> branches =branchDao.getBraches();
 		Map<Integer,Branch> branchMap =new HashMap<Integer, Branch>();
+		Map<Integer,Integer> seatMap =new HashMap<Integer, Integer>();
 		for(Branch branch : branches){
 			branchMap.put(branch.getBranchId(), branch);
+			seatMap.put(branch.getBranchId(), branch.getAvailableSeats());
 		}
 		List<Integer> userId= new ArrayList<Integer>();
 		for(String id : userIds){
@@ -158,16 +161,53 @@ public class UserServiceImpl implements UserService {
 		}
 		List<User> users=userDao.getUsers(userId);
 		for(User user : users){
-			if(user.getPreference().getOption1().getAvailableSeats() >0){
-				user.getPreference().setResult(user.getPreference().getOption1().getBranchName());
-			} else if(user.getPreference().getOption2().getAvailableSeats() >0){
-				user.getPreference().setResult(user.getPreference().getOption2().getBranchName());
-			} else if(user.getPreference().getOption3().getAvailableSeats() >0){
-				user.getPreference().setResult(user.getPreference().getOption3().getBranchName());
+			if (user.getPreference() != null && user.getPreference().getResult() == null) {
+				if (seatMap
+						.get(user.getPreference().getOption1().getBranchId()) > 0) {
+
+					user.getPreference().setResult(
+							user.getPreference().getOption1().getBranchName());
+					seatMap.put(
+							user.getPreference().getOption1().getBranchId(),
+							seatMap.get(user.getPreference().getOption1()
+									.getBranchId()) - 1);
+
+				} else if (seatMap.get(user.getPreference().getOption2()
+						.getBranchId()) > 0) {
+
+					user.getPreference().setResult(
+							user.getPreference().getOption1().getBranchName());
+					seatMap.put(
+							user.getPreference().getOption2().getBranchId(),
+							seatMap.get(user.getPreference().getOption2()
+									.getBranchId()) - 1);
+
+				} else if (seatMap.get(user.getPreference().getOption3()
+						.getBranchId()) > 0) {
+
+					user.getPreference().setResult(
+							user.getPreference().getOption1().getBranchName());
+					seatMap.put(
+							user.getPreference().getOption3().getBranchId(),
+							seatMap.get(user.getPreference().getOption3()
+									.getBranchId()) - 1);
+
+				} else {
+
+					user.getPreference().setResult("Seat Not Allocate");
+				}
 			}
-			
+			userDao.updateUser(user);
 		}
-		return null;
+		Set<Integer> set =branchMap.keySet();
+		List<Branch> branch = new ArrayList<Branch>();
+		for(Integer key :set){
+			Branch b=branchMap.get(key);
+			b.setAvailableSeats(seatMap.get(key));		
+			branch.add(b);
+		}
+		branchDao.updateBranches(branch);
+		return new JSONObject().toString();
 	}
 
 }

@@ -52,8 +52,11 @@ public class BranchServiceImpl implements BranchService {
 	public String saveBranch(String branchName, Integer availableSeats,
 			Integer totalSeats) {
 		Branch branch = new Branch();
+		branch.setBranchName(branchName);
+		branch.setSeats(totalSeats);
+		branch.setAvailableSeats(availableSeats);
 		branchDao.saveBranch(branch);
-		return "";
+		return new JSONObject().toString();
 	}
 
 	

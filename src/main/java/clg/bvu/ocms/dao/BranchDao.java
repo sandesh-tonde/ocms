@@ -10,4 +10,6 @@ public interface BranchDao {
 
 	void saveBranch(Branch branch);
 
+	void updateBranches(List<Branch> branch);
+
 }

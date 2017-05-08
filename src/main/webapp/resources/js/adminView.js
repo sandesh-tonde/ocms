@@ -378,23 +378,20 @@ function adminBranchView() {
 
 function addBranch(){
 	
-var html= '<div class="container" style="width:80%">'
+var html= "<h2 id='h2.-bootstrap-heading'>Branch Details</h2><br><br>"
+		+ '<div class="container" style="width:80%">'
 		+ '<div class="col-md-5">'
 		+ '    <div class="form-group">'
+		+ '		<label class="form-label"><strong>Branch Name</strong></label>' 
 		+ '        <div class="input-group text">'
 		+ '            <input type="text"  placeholder="Branch Name"  id="branchName"class="form-control" />'
 		+ '        </div>'
 		+ '    </div>'
 		+ '</div>'
+		
 		+ '<div class="col-md-5">'
 		+ '    <div class="form-group">'
-		+ '        <div class="input-group text">'
-		+ '            <input type="text"  placeholder="Available Seats"  id="availableSeats"class="form-control" />'
-		+ '        </div>'
-		+ '    </div>'
-		+ '</div>'
-		+ '<div class="col-md-5">'
-		+ '    <div class="form-group">'
+		+ '		<label class="form-label"><strong>Total Seats</strong></label>'                                                            
 		+ '        <div class="input-group text">'
 		+ '            <input type="text"  placeholder="Total Seats"  id="totalSeats"class="form-control" />'
 		+ '        </div>'
@@ -406,13 +403,16 @@ var html= '<div class="container" style="width:80%">'
 		+ '    </div>'
 		+ '</div>'
 		+ '</div>';
+
+$("#main-containt").empty();
+$("#main-containt").html(html);
 	
 }
 
 function saveBranch(){
 	
 	var branchName=$("#branchName").val();
-	var availableSeats=$("#availableSeats").val();
+	var availableSeats=$("#totalSeats").val();
 	var totalSeats=$("#totalSeats").val();
 	
 	if(branchName == "" || availableSeats == "" || totalSeats == ""){
