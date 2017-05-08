@@ -12,4 +12,6 @@ public interface BranchDao {
 
 	void updateBranches(List<Branch> branch);
 
+	void deleteBranch(Integer id);
+
 }

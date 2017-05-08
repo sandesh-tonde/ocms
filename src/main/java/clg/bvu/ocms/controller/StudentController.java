@@ -2,6 +2,8 @@ package clg.bvu.ocms.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -54,8 +56,20 @@ private BranchService branchService;
 	@RequestMapping(value="/getUserDetails",method=RequestMethod.POST)
 	@ResponseBody
 	private  String getUserDetails(HttpServletRequest request){
-		Integer userId=(Integer)request.getSession().getAttribute("user_id");
-		return userService.getUserData(userId);
+		try{
+			Integer userId=(Integer)request.getSession().getAttribute("user_id");
+			return userService.getUserData(userId);
+		}
+		catch(Exception e){
+			JSONObject json = new JSONObject();
+			try {
+				json.put("msg", "Session Time Out Please Login");
+			} catch (JSONException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			return json.toString();
+		}
 	}
 	
 	@RequestMapping(value="/getDocumentsDetails",method=RequestMethod.POST)

@@ -7,4 +7,6 @@ public interface BranchService {
 	String saveBranch(String branchName, Integer availableSeats,
 			Integer totalSeats);
 
+	String deleteBranch(Integer id);
+
 }

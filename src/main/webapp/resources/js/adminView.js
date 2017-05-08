@@ -81,6 +81,10 @@ function getStudentBatchWise(batch){
         	
 			var i=0;
 				$(json).each(function(index, element) {
+					if(element.msg != undefined){
+	        			alert(element.msg);
+	        			
+	        		} else {
 					if (element.name != undefined) {
 						i++;
 					html += '	<tr>'
@@ -93,12 +97,14 @@ function getStudentBatchWise(batch){
 						+ '		<th>' + element.result + '</th>'
 						+ '	</tr>';
 					}
+	        		}
 				});
 			
 			$("#studentsData").html(html);
+				
         },
         error : function(json) {
-        	alert("some error");	  
+        	alert("Session Time Out Please Login");	  
         }       
     });	
 }
@@ -128,7 +134,7 @@ function setTime(){
 			homeView();
         },
         error : function(json) {
-        	alert("some error");	  
+        	alert("Session Time Out Please Login");	  
         }       
     });		
 }
@@ -193,7 +199,7 @@ function result(){
 			resultView();
         },
         error : function(json) {
-        	alert("some error");	  
+        	alert("Session Time Out Please Login");	  
         }       
     });		
 }
@@ -270,7 +276,7 @@ function getDocumentBatchWise(batch){
 			$("#studentsData").html(html);
         },
         error : function(json) {
-        	alert("some error");	  
+        	alert("Session Time Out Please Login");	  
         }       
     });	
 	
@@ -322,7 +328,7 @@ function documentVarification(id,status){
         	adminBranchView();
         },
         error : function(json) {
-        	alert("some error");	  
+        	alert("Session Time Out Please Login");	  
         }       
     });	
 	//alert(status);
@@ -345,8 +351,8 @@ function adminBranchView() {
 				+'	<tr>'
 				+'		<th>No</th>'
 				+'		<th>Branch</th>'
-				+'		<th>Seats</th>'
-				
+				+'		<th>Available Seats</th>'
+				+'		<th>Action</th>'
 				+'	</tr>'
 				+'</thead>'
 				+'<tbody>';
@@ -356,6 +362,7 @@ function adminBranchView() {
 				+'		<td>'+i+'</td>'
 				+'		<td>'+element.branchName+'</td>'
 				+'		<td>'+element.availableSeats+'</td>'
+				+'		<td><a href="#" onclick="deleteBranch('+element.branchId+')"><span class="label label-default">Delete</span></td>'
 				+'	</tr>';
 				
         		
@@ -370,7 +377,7 @@ function adminBranchView() {
 			
         },
         error : function(json) {
-        	alert("some error");	  
+        	alert("Session Time Out Please Login");	  
         }       
     });	
 
@@ -433,8 +440,28 @@ function saveBranch(){
         	adminBranchView();
         },
         error : function(json) {
-        	alert("some error");	  
+        	alert("Session Time Out Please Login");	  
         }       
     });	
 	
+}
+
+function deleteBranch(id){
+	//sconfirm("Want to Delete !") == true
+	var status=confirm("Are You sure \n You want to Delete?");
+	if(status){
+	$.ajax({
+		type: "POST",
+        url : contextApplicationPath+'/AdminController/deleteBranch',         
+        data : {"id":id},
+        dataType: 'json',
+        success : function(json) {
+        	alert("Branch Deleted");
+        	adminBranchView();
+        },
+        error : function(json) {
+        	alert("Session Time Out Please Login");	  
+        }       
+    });
+	}
 }

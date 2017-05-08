@@ -65,5 +65,18 @@ public class BranchDaoImpl implements BranchDao {
 		}
 		
 	}
+
+	@Override
+	public void deleteBranch(Integer id) {
+		Session session =sessionFactory.getCurrentSession();
+		try{
+			Branch b =(Branch) session.load(Branch.class, id);
+			session.delete(b);
+		} catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+	}
 	
 }

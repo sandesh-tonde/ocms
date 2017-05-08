@@ -1,5 +1,7 @@
 package clg.bvu.ocms.service;
 
+import java.util.Date;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -10,7 +12,9 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import clg.bvu.ocms.dao.PreferencesDao;
+import clg.bvu.ocms.dao.UserDao;
 import clg.bvu.ocms.model.Preference;
+import clg.bvu.ocms.model.User;
 
 
 
@@ -18,11 +22,18 @@ import clg.bvu.ocms.model.Preference;
 public class PreferencesServiceImpl implements PreferencesService {
 	
 	private PreferencesDao preferencesDao;
+	private UserDao userDao;
 
 	@Autowired
 	@Qualifier("PreferencesDaoImpl")
 	public void setPreferenceDetailsDao(PreferencesDao preferencesDao) {
 		this.preferencesDao = preferencesDao;
+	}
+	
+	@Autowired
+	@Qualifier("UserDaoImpl")
+	public void setUserDao(UserDao userDao) {
+		this.userDao = userDao;
 	}
 	//@Transactional(propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
 
@@ -57,6 +68,19 @@ public class PreferencesServiceImpl implements PreferencesService {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		} else{
+			User u=userDao.getUserData(userId);
+			Date serverDate = new Date();
+			if(serverDate.after(u.getStartTime()) && serverDate.before(u.getEndTime())){
+				try {
+					json1.put("msg", "Preferences Available in Given time slot Only");
+					return json1.toString();
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
 		}
 		return jsonArray.toString();
 	}

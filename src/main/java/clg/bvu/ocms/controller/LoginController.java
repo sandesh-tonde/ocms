@@ -35,7 +35,7 @@ private LoginService loginService;
 			User u=loginService.validateLogin(user);
 			if(u != null){
 				request.getSession().setAttribute("user_id", u.getUserId());
-				request.getSession().setAttribute("user_name", u.getUserName());
+				request.getSession().setAttribute("user_name", u.getName());
 				request.getSession().setAttribute("user", u);
 				if(u.getUserType().equalsIgnoreCase("student"))
 					return "studentHome";

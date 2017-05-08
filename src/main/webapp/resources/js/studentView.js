@@ -28,6 +28,10 @@ function studentInformationView(){
         dataType: 'json',
         success : function(json) {
         	$(json).each(function(index, element) {
+        		if(element.msg != undefined){
+        			alert(element.msg);
+        			
+        		} else {
         		var html='<h2 id="h2.-bootstrap-heading">Student Information</h2><br><br>'
         		+'<table class="table table-bordered">'
 				+'<thead>'
@@ -57,12 +61,15 @@ function studentInformationView(){
 				+'	</tr>'
 				+'</tbody>'
 				+'</table>'
+				+'<h2 id="h2.-bootstrap-heading">Result</h2>'
+				+'<h4 id="h2.-bootstrap-heading">'+element.result+'</h4>'
         		$("#main-containt").empty();
     			$("#main-containt").html(html);
+        		}
 			}); 
         },
         error : function(json) {
-        	alert("some error");	  
+        	alert("Session Time Out Please Login");	  
         }       
     });	
 }
@@ -115,7 +122,7 @@ function documentationView(){
 			ajaxFileUpload('fileForm');
         },
         error : function(json) {
-        	alert("some error");	  
+        	alert("Session Time Out Please Login");	  
         }       
     });	
 	
@@ -179,6 +186,13 @@ function onlineCounsellingView(){
         data : {},
         dataType: 'json',
         success : function(json) {
+        	var msg='';
+        	$(json).each(function(index, element) 
+        			{
+        				msg=element.msg;
+        				
+        				
+        			});
         	var html='<h2 id="h2.-bootstrap-heading">Online Councelling</h2><br><br>'
         		+'<table class="table">'
 				+'<thead>'
@@ -189,6 +203,9 @@ function onlineCounsellingView(){
 				+'	</tr>'
 				+'</thead>'
 				+'<tbody>';
+        	if(msg != undefined){
+        		html+='<h4 id="h2.-bootstrap-heading">'+msg+'</h4><br><br>';
+			} else {
         	$(json).each(function(index, element) {
         		
         		html +='	<tr>'
@@ -221,13 +238,13 @@ function onlineCounsellingView(){
     			 +'</table>';
         	if ((json.length) < 1)
         		html +='<button type="button" class="btn btn-primary m-b-10" style=" margin-left: 45%" onclick="savePreferences()">Save</button></td>';
-        	
+			}
         	$("#main-containt").empty();
 			$("#main-containt").html(html);
 			
         },
         error : function(json) {
-        	alert("some error");	  
+        	alert("Session Time Out Please Login");	  
         }       
     });	
 	
@@ -250,7 +267,7 @@ function savePreferences(){
         	
         },
         error : function(json) {
-        	alert("some error");	  
+        	alert("Session Time Out Please Login");	  
         }       
     });	
 }
@@ -270,7 +287,7 @@ function getSubViewCouncelling(){
         	});	
         },
         error : function(json) {
-        	alert("some error");	  
+        	alert("Session Time Out Please Login");	  
         }       
     });	
 }
@@ -313,7 +330,7 @@ function seatStatusView(){
 			
         },
         error : function(json) {
-        	alert("some error");	  
+        	alert("Session Time Out Please Login");	  
         }       
     });	
 }

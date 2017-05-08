@@ -59,6 +59,13 @@ public class BranchServiceImpl implements BranchService {
 		return new JSONObject().toString();
 	}
 
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor=Exception.class)
+	public String deleteBranch(Integer id) {
+		branchDao.deleteBranch(id);
+		return new JSONObject().toString();
+	}
+
 	
 	
 

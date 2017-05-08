@@ -57,9 +57,26 @@ public class UserServiceImpl implements UserService {
 			JSON.put("city", user.getCity());
 			JSON.put("country", user.getCountry());
 			JSON.put("seatNo", user.getSeatNo());
-			JSON.put("councellingDate", user.getCouncellingDate());
-			JSON.put("startTime", user.getStartTime());
-			JSON.put("endTime", user.getEndTime());
+			if(user.getCouncellingDate() != null)
+				JSON.put("councellingDate", user.getCouncellingDate().toString().split(" ")[0]);
+			else
+				JSON.put("councellingDate", "-");
+			if(user.getStartTime() != null)
+				JSON.put("startTime", user.getStartTime());
+			else
+				JSON.put("startTime", "-");
+			if(user.getEndTime() != null)
+				JSON.put("endTime", user.getEndTime());
+			else
+				JSON.put("endTime","-");
+			if(user.getPreference() != null)
+				if(user.getPreference().getResult() != null)
+					JSON.put("result", "Allocated To "+user.getPreference().getResult());
+				else
+					JSON.put("result", "Result Pending");
+			else
+				JSON.put("result", "Result Pending");
+			
 			return JSON.toString();
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
@@ -85,7 +102,7 @@ public class UserServiceImpl implements UserService {
 				JSON.put("country", user.getCountry());
 				JSON.put("seatNo", user.getSeatNo());
 				if(user.getCouncellingDate() != null)
-					JSON.put("councellingDate", user.getCouncellingDate());
+					JSON.put("councellingDate", user.getCouncellingDate().toString().split(" ")[0]);
 				else
 					JSON.put("councellingDate", "-");
 				if(user.getStartTime() != null)
