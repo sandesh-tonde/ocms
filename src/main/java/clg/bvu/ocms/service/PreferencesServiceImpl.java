@@ -71,7 +71,24 @@ public class PreferencesServiceImpl implements PreferencesService {
 		} else{
 			User u=userDao.getUserData(userId);
 			Date serverDate = new Date();
-			if(serverDate.after(u.getStartTime()) && serverDate.before(u.getEndTime())){
+			System.out.println(serverDate);
+			System.out.println(serverDate.after(u.getStartTime()));
+			System.out.println(serverDate.before(u.getEndTime()));
+			System.out.println(!serverDate.after(u.getStartTime()) && !serverDate.before(u.getEndTime()));
+			if(serverDate.after(u.getStartTime())) { //&& serverDate.before(u.getEndTime())){
+				if(serverDate.before(u.getEndTime())){
+				
+				} else {
+					try {
+						json1.put("msg", "Preferences Available in Given time slot Only");
+						return json1.toString();
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				
+			} else {
 				try {
 					json1.put("msg", "Preferences Available in Given time slot Only");
 					return json1.toString();

@@ -186,7 +186,7 @@ function onlineCounsellingView(){
         data : {},
         dataType: 'json',
         success : function(json) {
-        	var msg='';
+        	var msg;
         	$(json).each(function(index, element) 
         			{
         				msg=element.msg;
