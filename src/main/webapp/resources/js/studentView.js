@@ -204,7 +204,7 @@ function onlineCounsellingView(){
 				+'</thead>'
 				+'<tbody>';
         	if(msg != undefined){
-        		html+='<h4 id="h2.-bootstrap-heading">'+msg+'</h4><br><br>';
+        		html+='<h4 id="h2.-bootstrap-heading">Preferences Available in Given time slot Only</h4>';
 			} else {
         	$(json).each(function(index, element) {
         		
