@@ -52,12 +52,15 @@ public class PreferencesDaoImpl implements PreferencesDao {
 			Branch op2 = (Branch) session.load(Branch.class, option2);
 			Branch op3 = (Branch) session.load(Branch.class, option3);
 			User u = (User) session.load(User.class, userId);
+			
 			Preference pref = new Preference();
 			pref.setUser(u);
 			pref.setOption1(op1);
 			pref.setOption2(op2);
 			pref.setOption3(op3);
 			session.save(pref);
+			u.setPreference(pref);
+			session.update(u);
 			return 1;
 		}
 		catch (Exception e){

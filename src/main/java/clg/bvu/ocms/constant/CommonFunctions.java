@@ -29,9 +29,26 @@ public class CommonFunctions {
 	        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy H:mm a");
 	        try
 	        {
+	        	String[] dateData =stringDate.split(" ");
+	        	String m=dateData[dateData.length-1];
+	        	if(m.equalsIgnoreCase("PM")){
+	        		String time = dateData[dateData.length-2];//05/18/2017 2:25 PM
+	        		int hrs=Integer.parseInt(time.split(":")[0]);
+	        		if(hrs <12)
+	        			hrs=hrs+12;
+	        		dateData[dateData.length-2]=hrs+":"+time.split(":")[1];
+	        		String newstringDate ="";
+	        		for(String tmp :dateData)
+	        			newstringDate=newstringDate+" "+tmp;
+	        		
+	        		Date date = simpleDateFormat.parse(newstringDate.trim());
+
+		            System.out.println("date : "+date);
+		            return date;
+	        	}
 	            Date date = simpleDateFormat.parse(stringDate);
 
-	            //System.out.println("date : "+simpleDateFormat.format(date));
+	            System.out.println("date : "+date);
 	            return date;
 	        }
 	        catch (ParseException ex)

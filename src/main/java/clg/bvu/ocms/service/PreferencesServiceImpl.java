@@ -72,9 +72,9 @@ public class PreferencesServiceImpl implements PreferencesService {
 			User u=userDao.getUserData(userId);
 			Date serverDate = new Date();
 			System.out.println(serverDate);
-			System.out.println(serverDate.after(u.getStartTime()));
-			System.out.println(serverDate.before(u.getEndTime()));
-			System.out.println(!serverDate.after(u.getStartTime()) && !serverDate.before(u.getEndTime()));
+			System.out.println(serverDate.after(u.getStartTime())+"-"+u.getStartTime());
+			System.out.println(serverDate.before(u.getEndTime())+"-"+u.getEndTime());
+			//System.out.println(!serverDate.after(u.getStartTime()) && !serverDate.before(u.getEndTime()));
 			if(serverDate.after(u.getStartTime())) { //&& serverDate.before(u.getEndTime())){
 				if(serverDate.before(u.getEndTime())){
 				
